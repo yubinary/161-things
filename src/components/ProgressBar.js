@@ -10,7 +10,6 @@ export default function ProgressBar({ index, things }) {
   const containerStyles = {
     height: 15,
     backgroundColor: "#f1f1f1",
-    borderRadius: 50,
   }
 
   const fillerStyles = {

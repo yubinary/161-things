@@ -1,8 +1,11 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 import '../styles/Cards.css';
 
 export default function Cards({ index, setIndex, things, complete, setComplete }) {
+
+  const history = useHistory();
 
   function handleClickAdd() {
     complete[index + 1] = things[index];
@@ -18,74 +21,24 @@ export default function Cards({ index, setIndex, things, complete, setComplete }
     setIndex(index + 1);
   }
 
-  function displayThing(order) {
+  if (index >= things.length) {
     return (
-      <p>{things[index + order]}</p>
+      <div className="cards">
+        <button onClick={() => { history.push('/result') }}>See Result</button>
+      </div>
+    )
+  } else {
+    return (
+      <div className="cards">
+        <p>Checklist {index + 1}/{things.length}</p>
+        <p>{things[index]}</p>
+        <div className="buttons">
+          <button onClick={handleClickAdd}>o</button>
+          <button onClick={handleClickDelete}>x</button>
+        </div>
+      </div>
     )
   }
-
-  function displayCard() {
-    if (index === 0) {
-      return (
-        <div className="cards">
-          <div className="card empty">
-          </div>
-          <div className="card current">
-            {displayThing(0)}
-            <div className="buttons">
-              <button onClick={handleClickAdd}>o</button>
-              <button onClick={handleClickDelete}>x</button>
-            </div>
-          </div>
-          <div className="card after" onClick={() => setIndex(index + 1)}>
-            {displayThing(1)}
-          </div>
-        </div>
-      )
-    } else if (index === things.length - 1) {
-      return (
-        <div className="cards">
-          <div className="card before" onClick={() => setIndex(index - 1)}>
-            {displayThing(-1)}
-          </div>
-          <div className="card current">
-            {displayThing(0)}
-            <div className="buttons">
-              <button onClick={handleClickAdd}>o</button>
-              <button onClick={handleClickDelete}>x</button>
-            </div>
-          </div>
-          <div className="card empty">
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div className="cards">
-          <div className="card before" onClick={() => setIndex(index - 1)}>
-            {displayThing(-1)}
-          </div>
-          <div className="card current">
-            {displayThing(0)}
-            <div className="buttons">
-              <button onClick={handleClickAdd}>o</button>
-              <button onClick={handleClickDelete}>x</button>
-            </div>
-          </div>
-          <div className="card after" onClick={() => setIndex(index + 1)}>
-            {displayThing(1)}
-          </div>
-        </div>
-      )
-    }
-  }
-
-
-  return (
-    <div>
-      {displayCard()}
-    </div >
-  )
 }
 
 
