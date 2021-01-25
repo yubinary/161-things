@@ -3,9 +3,9 @@ import { INITTHINGS } from '../components/constant.js';
 import ProgressBar from "../components/ProgressBar.js";
 import Cards from "../components/Cards.js";
 
-import '../styles/Home.css';
+import '../styles/Things.css';
 
-export default function Home() {
+export default function Things() {
   const [index, setIndex] = useState(0);
   const [things, setThings] = useState(INITTHINGS);
   const [complete, setComplete] = useState({});
