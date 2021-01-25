@@ -4,7 +4,8 @@ import '../styles/ProgressBar.css';
 
 export default function ProgressBar({ index, things }) {
 
-  let progress = (index / things.length) * 100;
+  let total = things.length - 1;
+  let progress = (index / total) * 100;
 
   const containerStyles = {
     height: 15,

@@ -18,39 +18,72 @@ export default function Cards({ index, setIndex, things, complete, setComplete }
     setIndex(index + 1);
   }
 
-  function displayCard(order) {
-    if (index + order < 0) {
-      return (
-        <div>
-          <h1>161 Things Every Cornellian Should Do</h1>
-          <p>
-            Cornell is a big place. There’s a lot to do.
-            Here’s a list of 161 things that every Cornellian should do during their time on the Hill.
-            It was originally compiled from a 2005 email survey to students, and was updated this summer.
-            Best of luck!
-          </p>
-        </div>
-      )
-    }
+  function displayThing(order) {
     return (
       <p>{things[index + order]}</p>
     )
   }
 
-  return (
-    <div className="cards">
-      <div className="card before" onClick={() => setIndex(index - 1)}>
-        {displayCard(-1)}
-      </div>
-      <div className="card current">
-        {displayCard(0)}
-        <div className="buttons">
-          <button onClick={handleClickAdd}>o</button>
+  function displayCard() {
+    if (index === 0) {
+      return (
+        <div className="cards">
+          <div className="card empty">
+          </div>
+          <div className="card current">
+            {displayThing(0)}
+            <div className="buttons">
+              <button onClick={handleClickAdd}>o</button>
+              <button onClick={handleClickDelete}>x</button>
+            </div>
+          </div>
+          <div className="card after" onClick={() => setIndex(index + 1)}>
+            {displayThing(1)}
+          </div>
         </div>
-      </div>
-      <div className="card after" onClick={() => setIndex(index + 1)}>
-        {displayCard(1)}
-      </div>
+      )
+    } else if (index === things.length - 1) {
+      return (
+        <div className="cards">
+          <div className="card before" onClick={() => setIndex(index - 1)}>
+            {displayThing(-1)}
+          </div>
+          <div className="card current">
+            {displayThing(0)}
+            <div className="buttons">
+              <button onClick={handleClickAdd}>o</button>
+              <button onClick={handleClickDelete}>x</button>
+            </div>
+          </div>
+          <div className="card empty">
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="cards">
+          <div className="card before" onClick={() => setIndex(index - 1)}>
+            {displayThing(-1)}
+          </div>
+          <div className="card current">
+            {displayThing(0)}
+            <div className="buttons">
+              <button onClick={handleClickAdd}>o</button>
+              <button onClick={handleClickDelete}>x</button>
+            </div>
+          </div>
+          <div className="card after" onClick={() => setIndex(index + 1)}>
+            {displayThing(1)}
+          </div>
+        </div>
+      )
+    }
+  }
+
+
+  return (
+    <div>
+      {displayCard()}
     </div >
   )
 }
